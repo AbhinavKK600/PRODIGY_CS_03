@@ -1,0 +1,44 @@
+import re
+
+def assess_password_strength(password):
+  """Assesses the strength of a password based on given criteria."""
+
+  # Regular expressions for different criteria
+  length_criteria = r".{8,}"  # At least 8 characters
+  uppercase_criteria = r".*[A-Z]"
+  lowercase_criteria = r".*[a-z]"
+  number_criteria = r".*\d"
+  special_char_criteria = r".*[^\w\s]"
+
+  # Check if password meets each criterion
+  length_match = re.match(length_criteria, password)
+  uppercase_match = re.match(uppercase_criteria, password)
+  lowercase_match = re.match(lowercase_criteria, password)
+  number_match = re.match(number_criteria, password)
+  special_char_match = re.match(special_char_criteria, password)
+
+  # Calculate a score based on the number of criteria met
+  score = 0
+  if length_match:
+    score += 1
+  if uppercase_match:
+    score += 1
+  if lowercase_match:
+    score += 1
+  if number_match:
+    score += 1
+  if special_char_match:
+    score += 1
+
+  # Provide feedback based on the score
+  if score < 3:
+    return "Weak"
+  elif score < 5:
+    return "Medium"
+  else:
+    return "Strong"
+
+# Example usage
+password = input("Enter your password: ")
+strength = assess_password_strength(password)
+print("Password strength:", strength)
